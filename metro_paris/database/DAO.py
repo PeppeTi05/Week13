@@ -14,7 +14,7 @@ class DAO():
         cursor = conn.cursor(dictionary=True)
         cursor.execute(query)
         for row in cursor:
-            fermata = Fermata(row["id_fermata"], row["nome"], row["coordX"], row["coordY"] )
+            fermata = Fermata(row["id_fermata"], row["nome"], row["coordX"], row["coordY"])
             result.append(fermata)
         cursor.close()
         conn.close()
@@ -45,7 +45,7 @@ class DAO():
         query = "SELECT * FROM connessione c  WHERE c.id_stazP = %s"
 
         cursor = conn.cursor(dictionary=True)
-        cursor.execute(query, (u.id_fermata, ) ) # Parametro con (, )
+        cursor.execute(query, (u.id_fermata, )) # Parametro con (, )
         for row in cursor:
             connessione = Connessione(row["id_connessione"],
                                       row["id_linea"],

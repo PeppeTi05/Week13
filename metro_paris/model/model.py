@@ -6,7 +6,7 @@ from metro_paris.database.DAO import DAO
 class Model:
     def __init__(self):
         self._lista_fermate = []
-        self._dizionario_fermate = {}
+        self._dizionario_fermate = {} # serve per i nodi del grafo
         self._grafo = None
 
     def getRaggiungibili(self, idStazPartenza):
@@ -17,6 +17,15 @@ class Model:
         for u, v in edges:
             visited_nodes.append(v)
         return visited_nodes
+
+
+    def getPercorsoMinimo(self, idStazPartenza, idStazArrivo):
+        vSource = self._dizionario_fermate[idStazPartenza]
+        vTarget = self._dizionario_fermate[idStazArrivo]
+
+        costo, percorso = nx.single_source_dijkstra(self._grafo, vSource, vTarget, weight='tempo')
+
+        return costo, percorso
 
 
     def getAllFermate(self):
@@ -107,11 +116,14 @@ class Model:
             if (self._grafo.has_edge(u_nodo, v_nodo)):  # Se l'arco c'è già
                 # Verifico se il tempo di percorrenza appena calcolato è minore di
                 # di quello associato all'arco già presente, se così aggiorno
-                if (self._grafo[u_nodo][v_nodo]["tempo"]>tempo_perc):
+                if self._grafo[u_nodo][v_nodo]["tempo"]>tempo_perc:
                     self._grafo[u_nodo][v_nodo]["tempo"] = tempo_perc
             else:  # Altrimenti lo aggiungo
                 self._grafo.add_edge(u_nodo, v_nodo, tempo=tempo_perc)
 
         print(self._grafo)
+
+
+
 
 

@@ -26,5 +26,6 @@ class Fermata:
     def __str__(self):
         return f"Fermata: {self._id_fermata} {self._nome}"
 
+    # IMPORTANTE se uso l'oggetto come nodo di un grafo
     def __hash__(self):
         return hash(self._id_fermata)

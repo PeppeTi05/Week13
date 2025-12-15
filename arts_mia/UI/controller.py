@@ -8,10 +8,14 @@ class Controller:
         # the model, which implements the logic of the program and holds the data
         self._model = model
 
+
     def handleAnalizzaOggetti(self, e):
         self._model.buildGrafo() # grafo costruito nel model
         self._view.txt_result.controls.clear()
         self._view.txt_result.controls.append(ft.Text(f"{self._model._grafo}"))
+
+        self._view._btnCercaOggetti.disabled = False
+        self._view._btnCompConnessa.disabled = False
         self._view.update_page()
 
     def handleCompConnessa(self,e):
@@ -24,6 +28,9 @@ class Controller:
             self._view.txt_result.controls.clear()
             self._view.txt_result.controls.append(
                 ft.Text(f"Dim. componente connessa: {numNodi}"))
+            # Qui popolo la dropdown _ddLunghezza
+            for i in range(2, numNodi):
+                self._view._ddLunghezza.options.append(ft.dropdown.Option(f"{i}"))
             self._view.update_page()
 
 
@@ -32,3 +39,8 @@ class Controller:
             self._view.txt_result.controls.append(ft.Text("Inserisci un id valido"))
             self._view.update_page()
 
+    def handleCercaOggetti(self, e):
+        lunghezza = int(self._view.ddLunghezza.value)
+        id_oggetto = int(self._view._txtIdOggetto.value)
+        percorsoMigliore, pesoMigliore = self._model.getPercorsoMassimo(lunghezza)
+        print('Finito')
