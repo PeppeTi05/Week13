@@ -98,3 +98,4 @@ class Model:
             pesoTotale += self._grafo[u][v]['peso']
         return pesoTotale
 
+

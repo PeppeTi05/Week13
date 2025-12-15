@@ -67,3 +67,4 @@ class View():
         self._controller = controller
     def update_page(self):
         self._page.update()
+

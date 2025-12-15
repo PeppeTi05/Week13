@@ -45,3 +45,4 @@ class DAO:
         return result # lista di oggetti di tipo Connessione
 
 
+
